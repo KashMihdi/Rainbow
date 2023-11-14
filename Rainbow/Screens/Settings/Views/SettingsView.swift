@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var vm = SettingsViewModel()
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -25,6 +27,9 @@ struct SettingsView: View {
         .safeAreaInset(edge: .top) {
             HStack(spacing: 20) {
                 Image(systemName: "arrow.left")
+                    .onTapGesture {
+                        dismiss()
+                    }
                 Text("Настройки")
             }
             .padding(.horizontal)
