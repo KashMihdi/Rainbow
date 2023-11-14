@@ -25,7 +25,7 @@ struct SettingItem<Content: View>: View {
         .font(.title3.bold())
         .frame(maxWidth: .infinity, minHeight: 150)
         .padding(.horizontal)
-        .background(Color.gray.opacity(0.3).cornerRadius(20))
+        .background(Color("itemGray").cornerRadius(20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(.black, lineWidth: 2)

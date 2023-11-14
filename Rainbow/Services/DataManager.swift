@@ -6,29 +6,56 @@
 //
 
 import Foundation
+import Combine
 
-final class DataManager<T:Codable> {
+@dynamicMemberLookup
+final class DataManager: ObservableObject {
+    //MARK: - Keys
+    private struct Keys {
+        static let settings = "settings"
+        static let statistics = "statistics"
+    }
+    
+    @Published var settings: Settings = .init()
+    @Published var statistics: [Statistics] = .init()
     
     private let userDefaults = UserDefaults.standard
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
+    private var cancelable = Set<AnyCancellable>()
     
-    private var key: String {
-        switch T.self {
-        case is Settings.Type: return "settings"
-        case is [Statistics].Type: return "statistics"
-        default: return ""
+    init() {
+        do {
+            settings = try load(for: Keys.settings)
+            statistics = try load(for: Keys.statistics)
+        } catch {
+            print(error.localizedDescription)
         }
+        
+        save(for: settings, with: Keys.settings)
+        save(for: statistics, with: Keys.statistics)
+        
+        $settings
+            .sink { [unowned self] value in
+                self.save(for: value, with: Keys.settings)
+            }
+            .store(in: &cancelable)
+        
+        $statistics
+            .sink { [unowned self] value in
+                self.save(for: value, with: Keys.statistics)
+            }
+            .store(in: &cancelable)
     }
     
-    public func load() throws -> T {
+    private func load<T: Decodable>(for key: String) throws -> T {
         guard let data = userDefaults.data(forKey: key) else {
             throw DataError.notFound(key)
         }
         return try decoder.decode(T.self, from: data)
     }
     
-    public func save(value: T) {
+    private func save<T: Encodable>(for value: T, with key: String) {
         guard let data = try? encoder.encode(value) else {
             print("Cant save")
             return
@@ -36,8 +63,13 @@ final class DataManager<T:Codable> {
         userDefaults.setValue(data, forKey: key)
     }
     
-    public func remove() {
+    private func remove(for key: String) {
         userDefaults.removeObject(forKey: key)
+    }
+    
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<Settings, T>) -> T {
+        get { settings[keyPath: keyPath] }
+        set { settings[keyPath: keyPath] = newValue }
     }
 }
 

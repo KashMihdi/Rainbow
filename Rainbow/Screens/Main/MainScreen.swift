@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct MainScreen: View {
-    let buttonText = ButtonStates.allCases
     @State private var openSettings = false
     @State private var openRules = false
     @State private var openStatistics = false
+    let buttonText = ButtonStates.allCases
+    
     var body: some View {
         VStack {
             Image(systemName: "heart.fill")
@@ -35,7 +36,7 @@ struct MainScreen: View {
             SettingsView()
         }
         .fullScreenCover(isPresented: $openStatistics) {
-            StatisticsView(statistics: [])
+            StatisticsView()
         }
         .sheet(isPresented: $openRules){
             RulesView()
@@ -64,5 +65,6 @@ struct MainScreen: View {
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
+            .environmentObject(DataManager())
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject private var vm = SettingsViewModel()
+    @EnvironmentObject var vm: DataManager
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -23,7 +23,7 @@ struct SettingsView: View {
                 arrangementWord
             }
         }
-        .background(.white)
+        .background(Color.background(name: vm.backgroundColor))
         .safeAreaInset(edge: .top) {
             HStack(spacing: 20) {
                 Image(systemName: "arrow.left")
@@ -37,7 +37,6 @@ struct SettingsView: View {
             .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
             .background(.gray)
         }
-        .onDisappear { vm.save() }
     }
 }
 
@@ -94,13 +93,9 @@ private extension SettingsView {
                     }
                     .frame(height: 30)
                     .onTapGesture {
-                        if vm.letterColor.contains(color) {
-                            vm.letterColor.removeAll(where: { $0 == color})
-                            print("Remove")
-                        } else {
-                            vm.letterColor.append(color)
-                            print("Append")
-                        }
+                        vm.letterColor.contains(color)
+                            ? vm.letterColor.removeAll(where: { $0 == color} )
+                            : vm.letterColor.append(color)
                         
                         print(vm.letterColor.count)
                     }
@@ -166,6 +161,7 @@ private extension SettingsView {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(DataManager())
     }
 }
 

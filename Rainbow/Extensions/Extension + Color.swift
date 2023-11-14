@@ -29,6 +29,17 @@ extension Color {
             return .orange
         }
     }
+    
+    static func background(name: BackgroundColor) -> Self {
+        switch name {
+        case .gray:
+            return .gray
+        case .white:
+            return .white
+        case .black:
+            return .black
+        }
+    }
 }
 
 

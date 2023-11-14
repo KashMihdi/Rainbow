@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct RainbowApp: App {
+    @StateObject private var dataProvider = DataManager()
     var body: some Scene {
         WindowGroup {
-            SettingsView()
+            MainScreen()
+                .environmentObject(dataProvider)
         }
     }
 }

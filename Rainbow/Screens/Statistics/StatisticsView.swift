@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct StatisticsView: View {
+    @EnvironmentObject var vm: DataManager
     @Environment(\.dismiss) var dismiss
-    let statistics: [Statistics]
     
     var body: some View {
         LazyVStack(spacing: 16) {
-            ForEach(statistics, content: StatisticsItem.init)
+            ForEach(vm.statistics, content: StatisticsItem.init)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom) {
@@ -42,11 +42,13 @@ struct StatisticsView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.horizontal)
+        .background(Color.background(name: vm.backgroundColor))
     }
 }
 
 struct StatisticsView_Previews: PreviewProvider {
     static var previews: some View {
-        StatisticsView(statistics: dev.statistics)
+        StatisticsView()
+            .environmentObject(DataManager())
     }
 }

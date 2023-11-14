@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Statistics: Identifiable {
+struct Statistics: Identifiable, Codable {
     var id = UUID()
     let gameNumber: Int
     let speed: Double
