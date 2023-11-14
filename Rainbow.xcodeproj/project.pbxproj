@@ -20,6 +20,10 @@
 		FD5E19B82B0351C400B6CEB6 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19B72B0351C400B6CEB6 /* MainScreen.swift */; };
 		FD5E19BB2B035B4600B6CEB6 /* MainNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19BA2B035B4600B6CEB6 /* MainNavigationButton.swift */; };
 		FD5E19BE2B035F3000B6CEB6 /* RulesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19BD2B035F3000B6CEB6 /* RulesView.swift */; };
+		FD5E19C12B0367F600B6CEB6 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C02B0367F600B6CEB6 /* StatisticsView.swift */; };
+		FD5E19C42B03683700B6CEB6 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C32B03683700B6CEB6 /* Statistics.swift */; };
+		FD5E19C62B0369A300B6CEB6 /* StatisticsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C52B0369A300B6CEB6 /* StatisticsItem.swift */; };
+		FD5E19C82B036A4300B6CEB6 /* Extension + PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C72B036A4300B6CEB6 /* Extension + PreviewProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +41,10 @@
 		FD5E19B72B0351C400B6CEB6 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		FD5E19BA2B035B4600B6CEB6 /* MainNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationButton.swift; sourceTree = "<group>"; };
 		FD5E19BD2B035F3000B6CEB6 /* RulesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesView.swift; sourceTree = "<group>"; };
+		FD5E19C02B0367F600B6CEB6 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		FD5E19C32B03683700B6CEB6 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		FD5E19C52B0369A300B6CEB6 /* StatisticsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsItem.swift; sourceTree = "<group>"; };
+		FD5E19C72B036A4300B6CEB6 /* Extension + PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + PreviewProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				FD5E199F2B03446600B6CEB6 /* Settings.swift */,
+				FD5E19C32B03683700B6CEB6 /* Statistics.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -110,6 +119,7 @@
 				FD5E19B92B0351C800B6CEB6 /* Main */,
 				FD5E19AA2B0346A600B6CEB6 /* Settings */,
 				FD5E19BF2B03643800B6CEB6 /* Rules */,
+				FD5E19C22B0367FB00B6CEB6 /* Statistics */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -145,6 +155,7 @@
 			children = (
 				FD5E19AD2B0346E000B6CEB6 /* Extension + Color.swift */,
 				FD5E19B32B034DC000B6CEB6 /* Extension + Font.swift */,
+				FD5E19C72B036A4300B6CEB6 /* Extension + PreviewProvider.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -180,6 +191,15 @@
 				FD5E19BD2B035F3000B6CEB6 /* RulesView.swift */,
 			);
 			path = Rules;
+			sourceTree = "<group>";
+		};
+		FD5E19C22B0367FB00B6CEB6 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				FD5E19C02B0367F600B6CEB6 /* StatisticsView.swift */,
+				FD5E19C52B0369A300B6CEB6 /* StatisticsItem.swift */,
+			);
+			path = Statistics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,16 +273,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD5E19B42B034DC000B6CEB6 /* Extension + Font.swift in Sources */,
+				FD5E19C12B0367F600B6CEB6 /* StatisticsView.swift in Sources */,
 				FD5E19B12B03481200B6CEB6 /* SettingItem.swift in Sources */,
 				FD5E19A62B0345F900B6CEB6 /* SettingsView.swift in Sources */,
 				FD5E19A02B03446600B6CEB6 /* Settings.swift in Sources */,
+				FD5E19C42B03683700B6CEB6 /* Statistics.swift in Sources */,
 				FD5E19BB2B035B4600B6CEB6 /* MainNavigationButton.swift in Sources */,
 				FD5E19BE2B035F3000B6CEB6 /* RulesView.swift in Sources */,
 				FD5E19A32B03450B00B6CEB6 /* DataManager.swift in Sources */,
 				FD5E19AE2B0346E000B6CEB6 /* Extension + Color.swift in Sources */,
 				FD5E19B82B0351C400B6CEB6 /* MainScreen.swift in Sources */,
 				FD5E19922B03444600B6CEB6 /* RainbowApp.swift in Sources */,
+				FD5E19C82B036A4300B6CEB6 /* Extension + PreviewProvider.swift in Sources */,
 				FD5E19A92B03464A00B6CEB6 /* SettingsViewModel.swift in Sources */,
+				FD5E19C62B0369A300B6CEB6 /* StatisticsItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

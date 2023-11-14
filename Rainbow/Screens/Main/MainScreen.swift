@@ -11,6 +11,7 @@ struct MainScreen: View {
     let buttonText = ButtonStates.allCases
     @State private var openSettings = false
     @State private var openRules = false
+    @State private var openStatistics = false
     var body: some View {
         VStack {
             Image(systemName: "heart.fill")
@@ -25,13 +26,16 @@ struct MainScreen: View {
             VStack(spacing: 20) {
                 ForEach(buttonText, id: \.self) {
                     MainNavigationButton(title: $0) {
-                        
+                        openStatistics.toggle()
                     }
                 }
             }
         }
         .fullScreenCover(isPresented: $openSettings) {
             SettingsView()
+        }
+        .fullScreenCover(isPresented: $openStatistics) {
+            StatisticsView(statistics: [])
         }
         .sheet(isPresented: $openRules){
             RulesView()

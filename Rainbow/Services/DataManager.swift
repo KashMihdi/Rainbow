@@ -16,6 +16,7 @@ final class DataManager<T:Codable> {
     private var key: String {
         switch T.self {
         case is Settings.Type: return "settings"
+        case is [Statistics].Type: return "statistics"
         default: return ""
         }
     }
