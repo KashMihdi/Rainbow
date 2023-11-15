@@ -39,7 +39,14 @@ struct Settings: Codable {
 }
 
 enum LetterColor: String, Codable, CaseIterable {
-    case green, purple, red, yellow, black, brown, pink, orange
+    case green = "зеленый"
+    case purple = "фиолетовый"
+    case red = "красный"
+    case yellow = "желтый"
+    case black = "черный"
+    case brown = "коричневый"
+    case pink = "розовый"
+    case orange = "оранжевый"
 }
 enum LetterSize: Int, Codable {
     case small, medium, large

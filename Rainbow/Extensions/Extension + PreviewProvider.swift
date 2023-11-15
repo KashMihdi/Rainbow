@@ -20,6 +20,28 @@ final class PersonalPreview {
     static let instance = PersonalPreview()
     private init() {}
     
+    let settingFirstOption = Settings(
+        gameTime: 120,
+        questionTime: 2,
+        taskCheck: false,
+        letterColor: LetterColor.allCases,
+        letterSize: .large,
+        lettersBacking: false,
+        backgroundColor: .white,
+        wordArrangement: .center
+    )
+    
+    let settingSecondOption = Settings(
+        gameTime: 120,
+        questionTime: 2,
+        taskCheck: true,
+        letterColor: LetterColor.allCases,
+        letterSize: .large,
+        lettersBacking: true,
+        backgroundColor: .white,
+        wordArrangement: .random
+    )
+    
     let statistic = Statistics(
         gameNumber: 2,
         speed: 2,

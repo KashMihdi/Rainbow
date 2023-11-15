@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainNavigationButton: View {
-    let title: ButtonStates
+    let title: NavigateMainScreen
     let completion: () -> ()
     
     var body: some View {
@@ -16,30 +16,16 @@ struct MainNavigationButton: View {
             .font(.largeTitle.bold())
             .foregroundColor(.white)
             .frame(width: 250, height: 80)
-            .background(correctColor(title))
+            .background(.mainScreenButtonColor(title))
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .onTapGesture {
                 completion()
             }
     }
-    
-    private func correctColor(_ state: ButtonStates) -> Color {
-        switch state {
-        case .newGame: return .red
-        case .continueGame: return .blue
-        case .statisticGame: return .green
-        }
-    }
 }
 
 struct MainNavigationButton_Previews: PreviewProvider {
     static var previews: some View {
-        MainNavigationButton(title: .statisticGame) { }
+        MainNavigationButton(title: .statistic) { }
     }
-}
-
-enum ButtonStates: String, CaseIterable {
-    case newGame = "Новая Игра"
-    case continueGame = "Продолжить"
-    case statisticGame = "Статистика"
 }

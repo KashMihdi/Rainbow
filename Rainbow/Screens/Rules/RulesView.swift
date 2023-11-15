@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct RulesView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 30) {
-                RoundedRectangle(cornerRadius: 2)
-                    .frame(width: 80, height: 4)
+                VStack {
+                    Image(systemName: "xmark")
+                        .font(.largeTitle)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .onTapGesture { dismiss() }
+                    Text("Правила игра")
+                        .font(.largeTitle.bold())
+                }
                 
-                Text("Правила игра")
-                    .font(.largeTitle.bold())
                 Group {
                     Text("На экране в случайном месте появляется слово,обозначающее цвет, например: ")
                     + Text("написано «синий»")

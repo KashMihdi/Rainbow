@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainScreen: View {
     @StateObject private var vm = MainScreenViewModel()
-    let buttonText = ButtonStates.allCases
     
     var body: some View {
         VStack {
@@ -23,18 +22,18 @@ struct MainScreen: View {
             }
             
             VStack(spacing: 20) {
-                ForEach(buttonText, id: \.self) { state in
+                ForEach(NavigateMainScreen.mainButton, id: \.self) { state in
                     MainNavigationButton(title: state) {
-                        vm.navigate(state)
+                        vm.screen = state
                     }
                 }
             }
         }
+        .onChange(of: vm.screen) { _ in
+            vm.openScreen.toggle()
+        }
         .fullScreenCover(isPresented: $vm.openScreen) {
             navigate(vm.screen)
-        }
-        .sheet(isPresented: $vm.openRules){
-            RulesView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray.opacity(0.8))
@@ -42,15 +41,15 @@ struct MainScreen: View {
             HStack {
                 Image(systemName: "gear")
                     .onTapGesture {
-                        //vm.openSettings.toggle()
+                        vm.screen = .settings
                     }
                 Spacer()
                 Image(systemName: "questionmark")
                     .onTapGesture {
-                        vm.openRules.toggle()
+                        vm.screen = .rules
                     }
             }
-            .foregroundColor(.purple)
+            .foregroundColor(.mainScreenButtonColor(.settings))
             .font(.system(size: 40).bold())
             .padding(.horizontal, 30)
         }
@@ -60,9 +59,12 @@ struct MainScreen: View {
 private extension MainScreen {
     @ViewBuilder func navigate(_ screen: NavigateMainScreen) -> some View {
         switch screen {
-        case .newGame: Text("New Game")
+        case .newGame: GameView()
         case .settings: SettingsView()
         case .statistic: StatisticsView()
+        case .rules: RulesView()
+        case .main: EmptyView()
+        case .continueGame: EmptyView()
         }
     }
 }
