@@ -24,6 +24,7 @@
 		FD5E19C42B03683700B6CEB6 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C32B03683700B6CEB6 /* Statistics.swift */; };
 		FD5E19C62B0369A300B6CEB6 /* StatisticsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C52B0369A300B6CEB6 /* StatisticsItem.swift */; };
 		FD5E19C82B036A4300B6CEB6 /* Extension + PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C72B036A4300B6CEB6 /* Extension + PreviewProvider.swift */; };
+		FD5E19CA2B03D58B00B6CEB6 /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19C92B03D58B00B6CEB6 /* MainScreenViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		FD5E19C32B03683700B6CEB6 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
 		FD5E19C52B0369A300B6CEB6 /* StatisticsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsItem.swift; sourceTree = "<group>"; };
 		FD5E19C72B036A4300B6CEB6 /* Extension + PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + PreviewProvider.swift"; sourceTree = "<group>"; };
+		FD5E19C92B03D58B00B6CEB6 /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			children = (
 				FD5E19BC2B035F0B00B6CEB6 /* Components */,
 				FD5E19B72B0351C400B6CEB6 /* MainScreen.swift */,
+				FD5E19C92B03D58B00B6CEB6 /* MainScreenViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				FD5E19B12B03481200B6CEB6 /* SettingItem.swift in Sources */,
 				FD5E19A62B0345F900B6CEB6 /* SettingsView.swift in Sources */,
 				FD5E19A02B03446600B6CEB6 /* Settings.swift in Sources */,
+				FD5E19CA2B03D58B00B6CEB6 /* MainScreenViewModel.swift in Sources */,
 				FD5E19C42B03683700B6CEB6 /* Statistics.swift in Sources */,
 				FD5E19BB2B035B4600B6CEB6 /* MainNavigationButton.swift in Sources */,
 				FD5E19BE2B035F3000B6CEB6 /* RulesView.swift in Sources */,

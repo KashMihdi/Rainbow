@@ -57,7 +57,6 @@ final class DataManager: ObservableObject {
     
     private func save<T: Encodable>(for value: T, with key: String) {
         guard let data = try? encoder.encode(value) else {
-            print("Cant save")
             return
         }
         userDefaults.setValue(data, forKey: key)

@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct MainScreen: View {
-    @State private var openSettings = false
-    @State private var openRules = false
-    @State private var openStatistics = false
+    @StateObject private var vm = MainScreenViewModel()
     let buttonText = ButtonStates.allCases
     
     var body: some View {
@@ -25,20 +23,17 @@ struct MainScreen: View {
             }
             
             VStack(spacing: 20) {
-                ForEach(buttonText, id: \.self) {
-                    MainNavigationButton(title: $0) {
-                        openStatistics.toggle()
+                ForEach(buttonText, id: \.self) { state in
+                    MainNavigationButton(title: state) {
+                        vm.navigate(state)
                     }
                 }
             }
         }
-        .fullScreenCover(isPresented: $openSettings) {
-            SettingsView()
+        .fullScreenCover(isPresented: $vm.openScreen) {
+            navigate(vm.screen)
         }
-        .fullScreenCover(isPresented: $openStatistics) {
-            StatisticsView()
-        }
-        .sheet(isPresented: $openRules){
+        .sheet(isPresented: $vm.openRules){
             RulesView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -47,17 +42,27 @@ struct MainScreen: View {
             HStack {
                 Image(systemName: "gear")
                     .onTapGesture {
-                        openSettings.toggle()
+                        //vm.openSettings.toggle()
                     }
                 Spacer()
                 Image(systemName: "questionmark")
                     .onTapGesture {
-                        openRules.toggle()
+                        vm.openRules.toggle()
                     }
             }
             .foregroundColor(.purple)
             .font(.system(size: 40).bold())
             .padding(.horizontal, 30)
+        }
+    }
+}
+
+private extension MainScreen {
+    @ViewBuilder func navigate(_ screen: NavigateMainScreen) -> some View {
+        switch screen {
+        case .newGame: Text("New Game")
+        case .settings: SettingsView()
+        case .statistic: StatisticsView()
         }
     }
 }
