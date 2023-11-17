@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainScreen: View {
     @StateObject private var vm = MainScreenViewModel()
+    @EnvironmentObject var dataManager: DataManager
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct MainScreen: View {
             }
             
             VStack(spacing: 20) {
-                ForEach(NavigateMainScreen.mainButton, id: \.self) { state in
+                ForEach(NavigateMainScreen.hasContinue(dataManager.continueTime.isZero), id: \.self) { state in
                     MainNavigationButton(title: state) {
                         vm.screen = state
                     }
@@ -30,9 +31,11 @@ struct MainScreen: View {
             }
         }
         .onChange(of: vm.screen) { _ in
-            vm.openScreen.toggle()
+            if vm.screen != .main {
+                vm.openScreen.toggle()
+            }
         }
-        .fullScreenCover(isPresented: $vm.openScreen) {
+        .fullScreenCover(isPresented: sheetBinding()) {
             navigate(vm.screen)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -59,13 +62,23 @@ struct MainScreen: View {
 private extension MainScreen {
     @ViewBuilder func navigate(_ screen: NavigateMainScreen) -> some View {
         switch screen {
-        case .newGame: GameView()
+        case .newGame: GameView(isNewGame: true)
         case .settings: SettingsView()
         case .statistic: StatisticsView()
         case .rules: RulesView()
         case .main: EmptyView()
-        case .continueGame: EmptyView()
+        case .continueGame: GameView(isNewGame: false)
         }
+    }
+    
+    func sheetBinding() -> Binding<Bool> {
+        .init(
+            get: { vm.openScreen },
+            set: {
+                vm.screen = .main
+                vm.openScreen = $0
+            }
+        )
     }
 }
 

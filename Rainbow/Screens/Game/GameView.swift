@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct GameView: View {
+    @StateObject private var viewModel = GameViewModel()
     @EnvironmentObject var vm: DataManager
     @Environment(\.dismiss) var dismiss
+    let isNewGame: Bool
     let alignment: [Alignment] = [.bottom, .center, .leading, .top, .trailing]
+    
     var body: some View {
         VStack {
             ForEach(0..<5, id: \.self) { _ in
@@ -22,18 +25,24 @@ struct GameView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: vm.settings.wordArrangement == .random ? alignment.randomElement()! : .center)
             }
         }
+        .onAppear { viewModel.updateSettings(vm.settings, isNewGame: isNewGame) }
         .padding(.horizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .top) {
             HStack {
                 Image(systemName: "arrow.left")
                     .onTapGesture {
+                        viewModel.saveSettings(vm)
                         dismiss()
                     }
                 Spacer()
-                Text("01:00")
+                Text(viewModel.publishedTime)
+                    .onTapGesture { viewModel.timerService.stopTimer()}
                 Spacer()
                 Image(systemName: "play.fill")
+                    .onTapGesture {
+                        viewModel.timerService.startTimer()
+                    }
             }
             .padding(.horizontal)
             .font(.largeTitle)
@@ -52,7 +61,7 @@ struct GameView: View {
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(isNewGame: true)
             .environmentObject(DataManager())
     }
 }

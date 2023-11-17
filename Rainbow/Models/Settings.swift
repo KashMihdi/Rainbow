@@ -8,6 +8,7 @@
 import Foundation
 
 struct Settings: Codable {
+    var isContinue: Bool
     var gameTime: Double
     var questionTime: Double
     var taskCheck: Bool
@@ -16,8 +17,10 @@ struct Settings: Codable {
     var lettersBacking: Bool
     var backgroundColor: BackgroundColor
     var wordArrangement: WordArrangement
+    var continueTime: Double
     
     init(
+        isContinue: Bool = false,
         gameTime: Double = 120,
         questionTime: Double = 2,
         taskCheck: Bool = false,
@@ -25,8 +28,10 @@ struct Settings: Codable {
         letterSize: LetterSize = .large,
         lettersBacking: Bool = false,
         backgroundColor: BackgroundColor = .white,
-        wordArrangement: WordArrangement = .center
+        wordArrangement: WordArrangement = .center,
+        continueTime: Double = 0
     ) {
+        self.isContinue = isContinue
         self.gameTime = gameTime
         self.questionTime = questionTime
         self.taskCheck = taskCheck
@@ -35,6 +40,7 @@ struct Settings: Codable {
         self.lettersBacking = lettersBacking
         self.backgroundColor = backgroundColor
         self.wordArrangement = wordArrangement
+        self.continueTime = continueTime
     }
 }
 

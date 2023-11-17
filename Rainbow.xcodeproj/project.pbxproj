@@ -28,6 +28,7 @@
 		FD5E19CF2B04FC0D00B6CEB6 /* QuestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19CE2B04FC0D00B6CEB6 /* QuestionItem.swift */; };
 		FD5E19D12B050ECA00B6CEB6 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19D02B050ECA00B6CEB6 /* GameViewModel.swift */; };
 		FD5E19D32B05202E00B6CEB6 /* Extension + ShapeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19D22B05202E00B6CEB6 /* Extension + ShapeStyle.swift */; };
+		FD5E19D52B052E2700B6CEB6 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E19D42B052E2700B6CEB6 /* TimerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		FD5E19CE2B04FC0D00B6CEB6 /* QuestionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionItem.swift; sourceTree = "<group>"; };
 		FD5E19D02B050ECA00B6CEB6 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		FD5E19D22B05202E00B6CEB6 /* Extension + ShapeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + ShapeStyle.swift"; sourceTree = "<group>"; };
+		FD5E19D42B052E2700B6CEB6 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				FD5E19A22B03450B00B6CEB6 /* DataManager.swift */,
+				FD5E19D42B052E2700B6CEB6 /* TimerManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD5E19D12B050ECA00B6CEB6 /* GameViewModel.swift in Sources */,
+				FD5E19D52B052E2700B6CEB6 /* TimerManager.swift in Sources */,
 				FD5E19B42B034DC000B6CEB6 /* Extension + Font.swift in Sources */,
 				FD5E19C12B0367F600B6CEB6 /* StatisticsView.swift in Sources */,
 				FD5E19B12B03481200B6CEB6 /* SettingItem.swift in Sources */,

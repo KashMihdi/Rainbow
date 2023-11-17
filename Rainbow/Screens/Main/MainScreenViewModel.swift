@@ -20,6 +20,10 @@ enum NavigateMainScreen: String {
     case rules = "questionmark"
     case main
     
+    static func hasContinue(_ continueGame: Bool) -> [Self] {
+        continueGame ? [.newGame,.statistic] : [.newGame, .continueGame, .statistic]
+    }
+    
     static var mainButton: [Self] {
         [.newGame, .continueGame, .statistic]
     }

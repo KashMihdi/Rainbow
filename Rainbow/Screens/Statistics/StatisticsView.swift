@@ -18,7 +18,7 @@ struct StatisticsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom) {
             Button {
-                //
+                vm.statistics.removeAll()
             } label: {
                 Text("Очистить статистику")
                     .font(.title)
