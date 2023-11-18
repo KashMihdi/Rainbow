@@ -12,10 +12,13 @@ struct StatisticsView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        LazyVStack(spacing: 16) {
-            ForEach(vm.statistics, content: StatisticsItem.init)
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(vm.statistics, content: StatisticsItem.init)
+
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .bottom) {
             Button {
                 vm.statistics.removeAll()
@@ -28,7 +31,6 @@ struct StatisticsView: View {
                     .background(.red)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
-
         }
         .safeAreaInset(edge: .top) {
             HStack {

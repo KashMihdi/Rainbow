@@ -12,6 +12,8 @@ final class GameViewModel: ObservableObject {
     
     @Published var settings: Settings = .init()
     @Published var publishedTime: String = ""
+    @Published var questions: [(String, LetterColor)] = .init()
+    var correctAnswers: [Int] = .init()
     let timerService = TimerService()
     var cancellable = Set<AnyCancellable>()
     
@@ -22,8 +24,9 @@ final class GameViewModel: ObservableObject {
     private func updateTime() {
         timerService.timerTick
             .sink { [unowned self] _ in
-                self.settings.continueTime -= 1
+                updateQuestions(self.settings.continueTime)
                 formatTime(self.settings.continueTime)
+                self.settings.continueTime -= 1
             }
             .store(in: &cancellable)
     }
@@ -42,6 +45,7 @@ final class GameViewModel: ObservableObject {
             self.settings.continueTime = 0
         }
         data.settings = self.settings
+        data.statistics.append(createStatistics(number: data.statistics.count + 1))
     }
     
     private func formatTime(_ value: Double) {
@@ -53,10 +57,20 @@ final class GameViewModel: ObservableObject {
     
     private func updateQuestions(_ time: Double) {
         if Int(time) % Int(settings.questionTime) == 0 {
-            let newWords = LetterColor.allCases.map(\.rawValue).shuffled().suffix(5)
-            let newColor = LetterColor.allCases.shuffled().suffix(5)
-            let newQuestions = zip(newWords, newColor)
+            let newWords = LetterColor.allCases.map(\.rawValue).shuffled().prefix(5)
+            let newColor = LetterColor.allCases.shuffled().prefix(5)
+            questions = (0..<5).reduce([]) { (result, index) in
+                result + [(newWords[index], newColor[index])]
+            }
         }
+    }
+    
+    func appendCorrectAnswer(_ isSelected: Bool) {
+        isSelected ? correctAnswers.append(1) : correctAnswers.append(-1)
+    }
+    
+    private func createStatistics(number: Int) -> Statistics {
+        Statistics(gameNumber: number, speed: settings.questionTime, time: settings.gameTime, correctAnswer: correctAnswers.reduce(0, +), questions: Int(settings.gameTime) / Int(settings.questionTime))
     }
     
     deinit {

@@ -16,10 +16,10 @@ struct GameView: View {
     
     var body: some View {
         VStack {
-            ForEach(0..<5, id: \.self) { _ in
+            ForEach(viewModel.questions, id: \.0) { question in
                 ZStack {
-                    QuestionItem(setting: vm.settings) { _ in
-                        //
+                    QuestionItem(colors: question, setting: viewModel.settings) {
+                        viewModel.appendCorrectAnswer($0)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: vm.settings.wordArrangement == .random ? alignment.randomElement()! : .center)
