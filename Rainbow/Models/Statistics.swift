@@ -14,4 +14,20 @@ struct Statistics: Identifiable, Codable {
     let time: Double
     let correctAnswer: Int
     let questions: Int
+    
+    init(
+        id: UUID = UUID(),
+        gameNumber: Int = 0,
+        speed: Double = 0,
+        time: Double = 0,
+        correctAnswer: Int = 0,
+        questions: Int = 0
+    ) {
+        self.id = id
+        self.gameNumber = gameNumber
+        self.speed = speed
+        self.time = time
+        self.correctAnswer = correctAnswer
+        self.questions = questions
+    }
 }

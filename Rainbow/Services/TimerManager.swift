@@ -8,13 +8,6 @@
 import Foundation
 import Combine
 
-extension Int {
-    
-    func addZero() -> String {
-        self < 10 ? String("0\(self)") : String(self)
-    }
-}
-
 final class TimerService {
     private var cancelable: Cancellable?
     let timerTick = PassthroughSubject<Date, Never>()

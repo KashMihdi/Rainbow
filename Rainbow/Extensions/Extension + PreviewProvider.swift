@@ -58,4 +58,8 @@ final class PersonalPreview {
         ]
     }
     
+    var question: Question {
+        Question(colorName: "желтый", color: .green, position: "center")
+    }
+    
 }

@@ -9,17 +9,17 @@ import SwiftUI
 
 struct QuestionItem: View {
     @State private var isCorrect = false
-    let colors: (String, LetterColor)
+    let colors: Question
     let setting: Settings
     let completion: (Bool) -> ()
     
     var body: some View {
         HStack(spacing: 20) {
-            Text(colors.0)
+            Text(colors.colorName)
                 .foregroundColor(
                     setting.lettersBacking
                     ? Color.white
-                    : Color.letterColor(name: colors.1)
+                    : Color.letterColor(name: colors.color)
                 )
             if setting.taskCheck {
                 Image(systemName: isCorrect ? "checkmark.circle.fill" : "circle")
@@ -35,7 +35,7 @@ struct QuestionItem: View {
         .padding(.vertical, 10)
         .background(
             setting.lettersBacking
-            ? Color.letterColor(name: colors.1)
+            ? Color.letterColor(name: colors.color)
             : Color.clear
         )
         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -45,8 +45,8 @@ struct QuestionItem: View {
 struct QuestionItem_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            QuestionItem(colors: ("розовый", .brown), setting: dev.settingFirstOption) { _ in }
-            QuestionItem(colors: ("синий", .green), setting: dev.settingSecondOption) { _ in }
+            QuestionItem(colors: dev.question, setting: dev.settingFirstOption) { _ in }
+            QuestionItem(colors: dev.question, setting: dev.settingSecondOption) { _ in }
         }
     }
 }

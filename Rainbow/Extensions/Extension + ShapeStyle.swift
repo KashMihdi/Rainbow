@@ -19,3 +19,4 @@ extension ShapeStyle where Self == Color {
         }
     }
 }
+

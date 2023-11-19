@@ -8,53 +8,69 @@
 import SwiftUI
 
 struct GameView: View {
-    @StateObject private var viewModel = GameViewModel()
-    @EnvironmentObject var vm: DataManager
+    @StateObject private var vm = GameViewModel()
+    @EnvironmentObject var dataManager: DataManager
     @Environment(\.dismiss) var dismiss
     let isNewGame: Bool
-    let alignment: [Alignment] = [.bottom, .center, .leading, .top, .trailing]
     
     var body: some View {
         VStack {
-            ForEach(viewModel.questions, id: \.0) { question in
+            ForEach(vm.questions) { question in
                 ZStack {
-                    QuestionItem(colors: question, setting: viewModel.settings) {
-                        viewModel.appendCorrectAnswer($0)
+                    QuestionItem(
+                        colors: question,
+                        setting: vm.settings
+                    ) {
+                        vm.appendCorrectAnswer($0)
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: vm.settings.wordArrangement == .random ? alignment.randomElement()! : .center)
+                .frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: vm.updateAlignment(dataManager.wordArrangement)
+                        ? .getAlignment(question.position)
+                        : .center
+                )
             }
         }
-        .onAppear { viewModel.updateSettings(vm.settings, isNewGame: isNewGame) }
+        .onAppear { vm.updateSettings(dataManager.settings, isNewGame: isNewGame) }
         .padding(.horizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .safeAreaInset(edge: .top) {
             HStack {
                 Image(systemName: "arrow.left")
                     .onTapGesture {
-                        viewModel.saveSettings(vm)
+                        vm.saveSettings(dataManager)
                         dismiss()
                     }
                 Spacer()
-                Text(viewModel.publishedTime)
-                    .onTapGesture { viewModel.timerService.stopTimer()}
+                Text(vm.publishedTime)
+                    .onTapGesture { vm.timerService.stopTimer()}
                 Spacer()
                 Image(systemName: "play.fill")
                     .onTapGesture {
-                        viewModel.timerService.startTimer()
+                        vm.timerService.startTimer()
                     }
             }
             .padding(.horizontal)
             .font(.largeTitle)
         }
         .safeAreaInset(edge: .bottom) {
-            Text("x2")
+            Text("x\(vm.settings.questionTime.formatted())")
                 .font(.largeTitle)
                 .padding()
                 .background(.yellow)
                 .clipShape(Circle())
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing)
+        }
+        .alert("GAME OVER", isPresented: $vm.isFinished) {
+            Button("REPEAT", action: { vm.updateSettings(dataManager.settings, isNewGame: true) })
+            Button("BACK") {
+                vm.saveSettings(dataManager)
+                dismiss()
+            }
+           
         }
     }
 }

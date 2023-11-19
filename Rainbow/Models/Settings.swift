@@ -44,7 +44,7 @@ struct Settings: Codable {
     }
 }
 
-enum LetterColor: String, Codable, CaseIterable {
+enum LetterColor: String, Codable, CaseIterable, Equatable {
     case green = "зеленый"
     case purple = "фиолетовый"
     case red = "красный"
@@ -53,6 +53,10 @@ enum LetterColor: String, Codable, CaseIterable {
     case brown = "коричневый"
     case pink = "розовый"
     case orange = "оранжевый"
+    
+    static func hash() -> String {
+        UUID().uuidString
+    }
 }
 enum LetterSize: Int, Codable {
     case small, medium, large
@@ -81,4 +85,8 @@ enum BackgroundColor: String, Codable, CaseIterable {
 enum WordArrangement: String, Codable, CaseIterable {
     case random = "Случайное"
     case center = "По центру"
+    
+    static let alignment: [String] = [
+        "center", "top", "bottom", "trailing", "leading"
+    ]
 }

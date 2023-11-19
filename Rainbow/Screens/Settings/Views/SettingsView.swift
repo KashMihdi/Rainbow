@@ -19,6 +19,7 @@ struct SettingsView: View {
                 checkTask
                 letterColor
                 letterSize
+                letterBacking
                 backgroundColor
                 arrangementWord
             }
@@ -119,6 +120,17 @@ private extension SettingsView {
                     vm.letterSize.previos()
                 }
             }
+        }
+    }
+    
+    /// Letter Backing
+    var letterBacking: some View {
+        SettingItem(layout: .horizontal) { geo in
+            Text("Подложка для букв")
+                .frame(alignment: .leading)
+            Spacer()
+            Toggle("", isOn: $vm.lettersBacking)
+                .frame(width: geo.width * 0.2)
         }
     }
     
