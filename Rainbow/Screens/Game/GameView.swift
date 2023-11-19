@@ -11,6 +11,7 @@ struct GameView: View {
     @StateObject private var vm = GameViewModel()
     @EnvironmentObject var dataManager: DataManager
     @Environment(\.dismiss) var dismiss
+    @Namespace var play
     let isNewGame: Bool
     
     var body: some View {
@@ -28,32 +29,47 @@ struct GameView: View {
                     maxWidth: .infinity,
                     maxHeight: .infinity,
                     alignment: vm.updateAlignment(dataManager.wordArrangement)
-                        ? .getAlignment(question.position)
-                        : .center
+                    ? .getAlignment(question.position)
+                    : .center
                 )
             }
         }
+        .opacity(vm.isStopped ? 0 : 1)
         .onAppear { vm.updateSettings(dataManager.settings, isNewGame: isNewGame) }
         .padding(.horizontal)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: vm.isStopped ? 0 : .infinity)
         .safeAreaInset(edge: .top) {
-            HStack {
-                Image(systemName: "arrow.left")
-                    .onTapGesture {
-                        vm.saveSettings(dataManager)
-                        dismiss()
-                    }
-                Spacer()
-                Text(vm.publishedTime)
-                    .onTapGesture { vm.timerService.stopTimer()}
-                Spacer()
-                Image(systemName: "play.fill")
-                    .onTapGesture {
-                        vm.timerService.startTimer()
-                    }
+            if vm.isStopped {
+                HStack {
+                    Image(systemName: "play.fill")
+                        .font(.system(size: 100))
+                        .onTapGesture {
+                            vm.isStopped.toggle()
+                            vm.timerService.startTimer()
+                        }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .matchedGeometryEffect(id: "play", in: play)
+            } else {
+                HStack {
+                    Image(systemName: "arrow.left")
+                        .onTapGesture {
+                            vm.saveSettings(dataManager)
+                            dismiss()
+                        }
+                    Spacer()
+                    Text(vm.publishedTime)
+                    Spacer()
+                    Image(systemName: "pause.fill")
+                        .onTapGesture {
+                            vm.timerService.stopTimer()
+                            vm.isStopped.toggle()
+                        }
+                }
+                .matchedGeometryEffect(id: "play", in: play)
+                .padding(.horizontal)
+                .font(.largeTitle)
             }
-            .padding(.horizontal)
-            .font(.largeTitle)
         }
         .safeAreaInset(edge: .bottom) {
             Text("x\(vm.settings.questionTime.formatted())")
@@ -64,13 +80,14 @@ struct GameView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing)
         }
+        .animation(.interactiveSpring(response: 0.7, dampingFraction: 0.8, blendDuration: 0.7), value: vm.isStopped)
         .alert("GAME OVER", isPresented: $vm.isFinished) {
             Button("REPEAT", action: { vm.updateSettings(dataManager.settings, isNewGame: true) })
             Button("BACK") {
                 vm.saveSettings(dataManager)
                 dismiss()
             }
-           
+            
         }
     }
 }

@@ -15,6 +15,7 @@ final class GameViewModel: ObservableObject {
     @Published var publishedTime: String = ""
     @Published var questions: [Question] = .init()
     @Published var isFinished = false
+    @Published var isStopped = true
     
     //  MARK: - Helpers properties
     let timerService = TimerService()
